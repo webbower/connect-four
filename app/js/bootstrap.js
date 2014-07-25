@@ -3,6 +3,7 @@
 
   var game = new C4.Game(
     [
+    // Player names and colors could be chosen at start via additional UI
       new C4.Player('Black', new C4.Color('#000000', 'black')),
       new C4.Player('Red', new C4.Color('#FF0000', 'red'))
     ],

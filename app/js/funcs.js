@@ -2,42 +2,39 @@
   C4.F = {};
   C4.Util = {};
   
-  /* Functional helpers */
+  //// Functional helpers
+  
+  // Is if a function?
   function isFunction(fn) {
     return typeof fn === 'function';
   }
-  
-  function getFunctionName(fn) {
-    if(isFunction(fn)) {
-      if ('name' in fn) {
-        return fn.name;
-      }
 
-      var match = fn.toString().match(/^function\s+(\w+)/);
-      return match ? first(match) : null;
-    }
-  }
-
+  // Boolean negate
   function not(val) {
     return !val;
   }
   
+  // Integer negate
   function negate(int) {
     return -int;
   }
   
+  // Convert any array-like object to an actuall array
   function toArray(list) {
     return Array.prototype.slice.call(list);
   }
   
+  // Get the first item of a list
   function first(list) {
     return list[0];
   }
   
+  // Get everything BUT the first item of a list
   function tail(list) {
     return toArray(list).slice(1);
   }
   
+  // Create a new function with some arguments already set
   function partial(fn) {
     var boundArgs = tail(arguments);
     return function() {
@@ -45,28 +42,9 @@
     };
   }
   
-  function compose() {
-    var fns = arguments,
-        length = arguments.length;
-
-    return function () {
-        var i = length,
-            args = arguments;
-        // we need to go in reverse order
-        while ( --i >= 0 ) {
-            args = [fns[i].apply(this, args)];
-        }
-        return args[0];
-    };
-  }
+  //// Misc helpers
   
-  /* Higher Order Functions */
-  function createFactoryMethod(Ctor) {
-    return function() {
-      return new Ctor();
-    };
-  }
-  
+  // Create a DOM element
   function buildElement(name, attrs, content) {
     var el = document.createElement(name);
     
@@ -84,19 +62,12 @@
     return el;
   }
   
-  function navigateBoard(board, num) {
-    var withinBounds = partial(inclusive, 0, board.cells.length);
-    return function(originIdx) {
-      var tgtIdx = originIdx + num;
-      return withinBounds(tgtIdx) ? tgtIdx : null;
-    };
-  }
-  
+  // Is the slot empty?
   function slotIsEmpty(slot) {
     return slot.piece === null;
   }
-  
-  /* Misc helpers */
+
+  // num >= num <= num helper
   function inclusive(min, max, num) {
     if (num < min) { 
       return false;
@@ -107,6 +78,19 @@
     }
   }
   
+  // Helper function to get the name of a function if possible
+  function getFunctionName(fn) {
+    if(isFunction(fn)) {
+      if ('name' in fn) {
+        return fn.name;
+      }
+
+      var match = fn.toString().match(/^function\s+(\w+)/);
+      return match ? first(match) : null;
+    }
+  }
+
+  // Add functions to a namespace
   function addToNamespace(ns) {
     var fns = tail(arguments);
     fns
@@ -120,11 +104,7 @@
     ;
   }
   
-  addToNamespace(C4.Util,
-    createFactoryMethod, buildElement, slotIsEmpty, navigateBoard
-  );
+  addToNamespace(C4.Util, buildElement, slotIsEmpty);
   
-  addToNamespace(C4.F,
-    isFunction, not, negate, toArray, first, tail, partial, compose, inclusive
-  );
+  addToNamespace(C4.F, isFunction, not, negate, toArray, first, tail, partial, inclusive);
 })(this, this.C4);
