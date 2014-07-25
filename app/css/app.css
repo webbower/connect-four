@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#gamestate {
+  width: 100%;
+  background: #CCC;
+  border-bottom: 1px solid #666;
+  font-family: sans-serif;
+  font-size: 2em;
+  line-height: 1.5em;
+  text-align: center;
+}
+
+#board {
+  width: 1050px;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.slot {
+  width: 150px;
+  height: 150px;
+  background: yellow;
+  flex: 1 1 16.66667%;
+  border: 1px solid black;
+  position: relative;
+}
+
+.piece {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+}
+
+.piece-red {
+  background: #F00;
+}
+
+.piece-black {
+  background: #000;
+}

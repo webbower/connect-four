@@ -1,0 +1,14 @@
+{
+  "name": "connect-four",
+  "version": "0.1.0",
+  "homepage": "https://github.com/webbower/connect-four",
+  "authors": [
+    "Matt Bower <matt@webbower.com>"
+  ],
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "qunit": "~1.14.0"
+  }
+}
