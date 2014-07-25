@@ -4,8 +4,8 @@
   var game = new C4.Game(
     [
     // Player names and colors could be chosen at start via additional UI
-      new C4.Player('Black', new C4.Color('#000000', 'black')),
-      new C4.Player('Red', new C4.Color('#FF0000', 'red'))
+      new C4.Player(window.prompt('Enter the name of player 1'), new C4.Color('#000000', 'black')),
+      new C4.Player(window.prompt('Enter the name of player 2'), new C4.Color('#FF0000', 'red'))
     ],
     document.getElementById('gamestate')
   );

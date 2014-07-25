@@ -14,21 +14,28 @@
     // List of players
     this.players = players || [];
     // The current player
-    this.currentPlayer = F.first(players) || null;
+    this.currentPlayer = null;
     // The game is currently unfinished
     this.active = true;
     // Which player won
     this.winningPlayer = null;
     
-    // Initialize player state UI
-    this.displayPlayerState(this.currentPlayer.name + "'s turn");
+    // Initialize player state and UI
+    this.advanceToNextPlayer();
   };
 
   // Sets the next player in sequence to be the next player
   C4.Game.prototype.advanceToNextPlayer = function advanceToNextPlayer() {
-    var currentPlayerIndex = this.players.indexOf(this.currentPlayer);
-    this.currentPlayer = this.players[(currentPlayerIndex + 1) % this.players.length];
-    this.displayPlayerState(this.currentPlayer.name + "'s turn");
+    if (!this.currentPlayer) {
+      // If no current player is set, default to first player
+      this.currentPlayer = F.first(this.players);
+    } else {
+      // Otherwise, set it to the next player in line
+      var currentPlayerIndex = this.players.indexOf(this.currentPlayer);
+      this.currentPlayer = this.players[(currentPlayerIndex + 1) % this.players.length];
+    }
+
+    this.displayPlayerState(this.currentPlayer.name + "'s (" + this.currentPlayer.color.label + ") turn");
   };
 
   // Utility method to show end of game message and optionally perform an action
